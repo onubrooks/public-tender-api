@@ -43,29 +43,60 @@ class DataController extends Controller
         }
     }
 
-    public function fetchUploads(Request $request) {}
+    public function fetchUploads(Request $request) {
+        return response()->json([
+            'status' => 'success',
+            'message' => 'successfully fetched uploads',
+            'data' => Upload::select('title', 'status', 'file_path')->get()
+        ]);
+    }
 
-    public function fetchUploadStatus($upload_id) {}
-
-    public function searchContracts(Request $request) {}
-
-    public function fetchContract($contract_id) {}
-
-    public function contractReadStatus($contract_id) {}
-
-    // this function tests the processing of saved files, it is not exposed as a public api
-    public function processUpload(Request $request)
-    {
-        $upload = Upload::all();return $upload;
-        $upload->update(['status' => 'processing']);
-        Excel::import(new ContractsImport($upload), ($upload->file_path));
-        $upload->update(['status' => 'processed']);
+    public function fetchUploadStatus($upload_id) {
+        $upload = Upload::select('status')->find($upload_id);
 
         return response()->json([
             'status' => 'success',
-            'message' => 'successfully queued for processing',
-            'data' => Contract::limit(1)->get(),
-            'result' => $upload
+            'message' => 'successfully fetched upload status',
+            'data' => $upload
         ]);
     }
+
+    public function searchContracts(Request $request) {
+        $search = $request->search;// dataCelebracaoContrato, precoContratual, adjudicatarios
+        $contracts = Contract::whereDate('dataCelebracaoContrato', $search)
+            -> orWhere('precoContratual', $search)
+            -> orWhere('adjudicatarios', $search)
+            ->get();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'successfully fetched contracts',
+            'data' => $contracts
+        ]);
+    }
+
+    public function fetchContract($contract_id) {
+        $contract = Contract::find($contract_id);
+
+        $contract->read_at = now();
+        $contract->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'successfully fetched contract',
+            'data' => $contract
+        ]);
+    }
+
+    public function contractReadStatus($contract_id) {
+        $contract = Contract::select('read_at')->find($contract_id);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'successfully fetched contract read status',
+            'data' => [
+                'read' => ! is_null($contract->read_at)
+            ]
+        ]);
+    }
+
 }

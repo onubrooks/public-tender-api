@@ -38,7 +38,6 @@ Route::post('upload-for-processing', [DataController::class, 'uploadForProcessin
 | There should be no duplicated data;
 |
 */
-Route::get('/process-upload', [DataController::class, 'processUpload']);
 
 /*
 |--------------------------------------------------------------------------
