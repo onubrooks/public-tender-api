@@ -15,8 +15,9 @@ class CreateUploadsTable extends Migration
     {
         Schema::create('uploads', function (Blueprint $table) {
             $table->id();
-            $table->enum('status', ['queued', 'processing', 'processed']);
-            $table->integer('number_of_columns');
+            $table->string('title')->nullable(); // Example: August 2021 Contracts
+            $table->enum('status', ['queued', 'processing', 'processed'])->default('queued');
+            $table->integer('number_of_columns')->nullable();
             $table->string('file_path');
             $table->timestamps();
         });

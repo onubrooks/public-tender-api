@@ -8,4 +8,29 @@ use Illuminate\Database\Eloquent\Model;
 class Contract extends Model
 {
     use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'idcontrato',
+        'nAnuncio',
+        'tipoContrato',
+        'tipoprocedimento',
+        'objectoContrato',
+        'adjudicantes',
+        'adjudicatarios',
+        'dataPublicacao',
+        'dataCelebracaoContrato',
+        'precoContratual',
+        'cpv',
+        'prazoExecucao',
+        'localExecucao',
+        'fundamentacao',
+        'upload_id',
+        'batch_id',
+        'read_at',
+    ];
 }
