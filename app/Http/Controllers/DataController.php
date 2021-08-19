@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Imports\ContractsImport;
+use App\Jobs\ProcessXslFile;
 use App\Models\Contract;
 use App\Models\Upload;
 use Illuminate\Http\Request;
@@ -23,25 +24,23 @@ class DataController extends Controller
             // $path = $file->store('uploads', 'local');
             $name = $file->getClientOriginalName();
             $myfile = Storage::disk('public')->put('uploads/' . $name, fopen($file, 'r+'));
-            $items = Excel::collection(new Contract(), $file);
+            $items = Excel::toCollection(new Contract(), $file);
             $path = "public/uploads/$name";
 
-            Upload::create([
+            $upload = Upload::create([
                 'title' => $request->title ?? null,
                 'file_path' => $path,
-                'no_of_columns' => $items->count(),
+                'number_of_rows' => $items[0]->count() - 1,
+                'status' => 'queued'
+            ]);
+            ProcessXslFile::dispatch($upload)->delay(now()->addMinutes(2));
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'successfully queued for processing',
+                'data' => $upload
             ]);
         }
-    }
-
-    public function processUpload(Request $request) {
-        $upload = Upload::first();
-        Excel::import(new ContractsImport($upload), storage_path($upload->file_pth));
-        // if (Storage::disk('public')->exists($upload->file_path)) {
-        //     $url = Storage::url($upload->file_path);
-        //     $contents = Storage::get($upload->file_path);
-            
-        // }
     }
 
     public function fetchUploads(Request $request) {}
@@ -53,4 +52,20 @@ class DataController extends Controller
     public function fetchContract($contract_id) {}
 
     public function contractReadStatus($contract_id) {}
+
+    // this function tests the processing of saved files, it is not exposed as a public api
+    public function processUpload(Request $request)
+    {
+        $upload = Upload::all();return $upload;
+        $upload->update(['status' => 'processing']);
+        Excel::import(new ContractsImport($upload), ($upload->file_path));
+        $upload->update(['status' => 'processed']);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'successfully queued for processing',
+            'data' => Contract::limit(1)->get(),
+            'result' => $upload
+        ]);
+    }
 }

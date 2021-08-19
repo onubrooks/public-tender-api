@@ -15,7 +15,7 @@ class CreateContractsTable extends Migration
     {												
         Schema::create('contracts', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('idcontrato'); // 2265302
+            $table->bigInteger('idcontrato')->unique(); // 2265302
             $table->string('nAnuncio'); // 2574/2010
             $table->string('tipoContrato'); // Empreitadas de obras públicas
             $table->string('tipoprocedimento'); // Concurso público
@@ -24,7 +24,7 @@ class CreateContractsTable extends Migration
             $table->string('adjudicatarios'); // 502496878 - CONSTRUÇÕES PRAGOSA, S.A.
             $table->date('dataPublicacao'); // 29/06/2016
             $table->date('dataCelebracaoContrato'); // 31/05/2016
-            $table->decimal('precoContratual'); // 2605654.08
+            $table->decimal('precoContratual', 16, 2); // 2605654.08
             $table->string('cpv'); // 45233142-6 - Reparação de estradas
             $table->integer('prazoExecucao'); // 300
             $table->string('localExecucao'); // Portugal, Portugal Continental

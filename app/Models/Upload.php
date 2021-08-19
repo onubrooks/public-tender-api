@@ -14,5 +14,5 @@ class Upload extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'status', 'number_of_columns', 'file_path'];
+    protected $fillable = ['title', 'status', 'number_of_rows', 'file_path'];
 }

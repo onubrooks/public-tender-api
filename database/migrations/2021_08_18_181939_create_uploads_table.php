@@ -17,7 +17,7 @@ class CreateUploadsTable extends Migration
             $table->id();
             $table->string('title')->nullable(); // Example: August 2021 Contracts
             $table->enum('status', ['queued', 'processing', 'processed'])->default('queued');
-            $table->integer('number_of_columns')->nullable();
+            $table->integer('number_of_rows')->nullable();
             $table->string('file_path');
             $table->timestamps();
         });

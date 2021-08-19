@@ -33,4 +33,14 @@ class Contract extends Model
         'batch_id',
         'read_at',
     ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'dataPublicacao' => 'date',
+        'dataCelebracaoContrato' => 'date',
+    ];
 }
