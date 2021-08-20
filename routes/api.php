@@ -88,4 +88,4 @@ Route::get('/fetch-contract/{contract_id}', [DataController::class, 'fetchContra
 | An endpoint should exist to check if a certain contract (row) was ever read or not.
 |
 */
-Route::get('/contract-read-status/{contract_id}', [DataController::class, 'contractReadStatus']);
+Route::get('/contract-read-status/{contract_id}', [DataController::class, 'fetchContractReadStatus']);

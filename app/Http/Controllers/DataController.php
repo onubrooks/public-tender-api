@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Imports\ContractsImport;
-use App\Jobs\ProcessXslFile;
 use App\Models\Contract;
-use App\Models\Upload;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
-use Maatwebsite\Excel\Facades\Excel;
-
+use App\Services\UploadService;
+use App\Services\ContractService;
 class DataController extends Controller
 {
     public function uploadForProcessing(Request $request) {
@@ -18,85 +14,46 @@ class DataController extends Controller
             'title' => ['nullable', 'string'],
             'upload_file' => ['required', 'mimes:xls,xlsx'],
         ]);
-        // php artisan storage:link
+
         $file = $request->file('upload_file');
-        if ($file->isValid()) {
-            // $path = $file->store('uploads', 'local');
-            $name = $file->getClientOriginalName();
-            $myfile = Storage::disk('public')->put('uploads/' . $name, fopen($file, 'r+'));
-            $items = Excel::toCollection(new Contract(), $file);
-            $path = "public/uploads/$name";
+        $upload = UploadService::queueUpload($file);
 
-            $upload = Upload::create([
-                'title' => $request->title ?? null,
-                'file_path' => $path,
-                'number_of_rows' => $items[0]->count() - 1,
-                'status' => 'queued'
-            ]);
-            ProcessXslFile::dispatch($upload)->delay(now()->addMinutes(2));
-
-            return response()->json([
-                'status' => 'success',
-                'message' => 'successfully queued for processing',
-                'data' => $upload
-            ]);
-        }
+        return $this->sendSuccessResponse($upload, 'successfully queued for processing');
     }
 
-    public function fetchUploads(Request $request) {
-        return response()->json([
-            'status' => 'success',
-            'message' => 'successfully fetched uploads',
-            'data' => Upload::select('title', 'status', 'file_path')->get()
-        ]);
+    public function fetchUploads() {
+        return $this->sendSuccessResponse(UploadService::getUploads(), 'successfully fetched uploads');
     }
 
     public function fetchUploadStatus($upload_id) {
-        $upload = Upload::select('status')->find($upload_id);
+        $upload_status = UploadService::getUploadStatus($upload_id);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'successfully fetched upload status',
-            'data' => $upload
-        ]);
+        return $this->sendSuccessResponse($upload_status, 'successfully fetched upload status');
     }
 
     public function searchContracts(Request $request) {
-        $search = $request->search;// dataCelebracaoContrato, precoContratual, adjudicatarios
-        $contracts = Contract::whereDate('dataCelebracaoContrato', $search)
-            -> orWhere('precoContratual', $search)
-            -> orWhere('adjudicatarios', $search)
-            ->get();
-        return response()->json([
-            'status' => 'success',
-            'message' => 'successfully fetched contracts',
-            'data' => $contracts
-        ]);
+        $search = $request->search ?? '';
+        $dataCelebracaoContrato = $request->query('dataCelebracaoContrato');
+        $precoContratual = $request->query('precoContratual');
+        $adjudicatarios = $request->query('adjudicatarios');
+
+        $contracts = ContractService::searchContracts($search, $dataCelebracaoContrato, $precoContratual, $adjudicatarios);
+
+        return $this->sendSuccessResponse($contracts, 'successfully fetched contracts');
     }
 
     public function fetchContract($contract_id) {
-        $contract = Contract::find($contract_id);
+        $contract = ContractService::fetchContract($contract_id);
 
-        $contract->read_at = now();
-        $contract->save();
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'successfully fetched contract',
-            'data' => $contract
-        ]);
+        return $this->sendSuccessResponse($contract, 'successfully fetched contract');
     }
 
-    public function contractReadStatus($contract_id) {
-        $contract = Contract::select('read_at')->find($contract_id);
+    public function fetchContractReadStatus($contract_id) {
+        $contract = ContractService::fetchContractReadStatus($contract_id);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'successfully fetched contract read status',
-            'data' => [
-                'read' => ! is_null($contract->read_at)
-            ]
-        ]);
+        return $this->sendSuccessResponse([
+            'read' => ! is_null($contract->read_at)
+        ], 'successfully fetched contract read status');
     }
 
 }
