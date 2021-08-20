@@ -22,10 +22,13 @@
  * To tail messages from the worker
   heroku logs --tail --ps worker
  */
-// echo phpinfo();
 
 // to do:
 // 1. if processing fails, status is stuck at processing
 // 2. find an alternative storage option
 // 3. fix search contracts endpoint
 // 4. 
+
+// post install commands:
+// php artisan storage:link
+// heroku ps:scale worker=1
