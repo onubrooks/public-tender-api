@@ -27,7 +27,7 @@
 // 1. if processing fails, status is stuck at processing
 // 2. find an alternative storage option
 // 3. fix search contracts endpoint
-// 4. 
+// 4. make file names unique for stored files
 
 // post install commands:
 // php artisan storage:link

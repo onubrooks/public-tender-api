@@ -3,13 +3,14 @@
 namespace App\Services;
 
 use App\Models\Contract;
+use Illuminate\Support\Carbon;
 
 class ContractService
 {
     public static function searchContracts($search, $dataCelebracaoContrato = null, $precoContratual = null, $adjudicatarios = null)
     {
         // search the following: dataCelebracaoContrato, precoContratual, adjudicatarios
-        $query = Contract::whereDate('dataCelebracaoContrato', $search)
+        $query = Contract::whereDate('dataCelebracaoContrato', Carbon::createFromFormat('Y-m-d', $search))
             ->orWhere('precoContratual', $search)
             ->orWhere('adjudicatarios', $search);
         if (null !== $dataCelebracaoContrato || '' !== $dataCelebracaoContrato) {

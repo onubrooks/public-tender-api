@@ -34,13 +34,13 @@ class Contract extends Model
         'read_at',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'dataPublicacao' => 'date',
-        'dataCelebracaoContrato' => 'date',
-    ];
+    // /**
+    //  * The attributes that should be cast.
+    //  *
+    //  * @var array
+    //  */
+    // protected $casts = [
+    //     'dataPublicacao' => 'date',
+    //     'dataCelebracaoContrato' => 'date',
+    // ];
 }

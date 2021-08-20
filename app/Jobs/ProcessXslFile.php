@@ -13,6 +13,9 @@ use Illuminate\Bus\Batchable;
 use App\Imports\ContractsImport;
 use Maatwebsite\Excel\Facades\Excel;
 
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Http\UploadedFile;
+
 class ProcessXslFile implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Batchable;
@@ -48,8 +51,39 @@ class ProcessXslFile implements ShouldQueue
      */
     public function handle()
     {
+        $readerType =
+        $readerType = json_decode($this->upload->file_meta)->extension === 'xls' ? \Maatwebsite\Excel\Excel::XLS : \Maatwebsite\Excel\Excel::XLSX;
         $this->upload->update(['status' => 'processing']);
-        Excel::import(new ContractsImport($this->upload), ($this->upload->file_path));
+        Excel::import(
+            new ContractsImport($this->upload), 
+            $this->getFile($this->upload->file_path), 
+            'local', 
+            $readerType
+        );
         $this->upload->update(['status' => 'processed']);
+    }
+
+    public function getFile($url)
+    {
+        //get name file by url and save in object-file
+        $path_parts = pathinfo($url);
+        $newPath = sys_get_temp_dir() . '\tmp\\';
+        if (!is_dir($newPath)) {
+            mkdir($newPath, 0777);
+        }
+        $newUrl = $newPath . $path_parts['basename'];
+        copy($url, $newUrl);
+        $filesystem = new Filesystem;
+
+        $name = $filesystem->name($newUrl);
+        $extension = $filesystem->extension($newUrl);
+        $originalName = $name . '.' . $extension;
+        $mimeType = 'application/octet-stream';
+        $filesystem->mimeType($newUrl);
+        $error = null;
+
+        $file = new UploadedFile($newUrl, $originalName, $mimeType, $error, false);
+
+        return $file;
     }
 }

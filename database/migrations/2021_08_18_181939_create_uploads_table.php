@@ -19,6 +19,7 @@ class CreateUploadsTable extends Migration
             $table->enum('status', ['queued', 'processing', 'processed'])->default('queued');
             $table->integer('number_of_rows')->nullable();
             $table->string('file_path');
+            $table->text('file_meta')->nullable();
             $table->timestamps();
         });
     }
