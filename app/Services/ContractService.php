@@ -29,7 +29,7 @@ class ContractService
     {
         $contract = Contract::find($contract_id);
 
-        if(is_null($contract->read_at))
+        if(! is_null($contract) && is_null($contract->read_at))
         {
             $contract->read_at = now();
             $contract->save();

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contract;
 use Illuminate\Http\Request;
 
 use App\Services\UploadService;
@@ -50,6 +49,11 @@ class DataController extends Controller
 
     public function fetchContractReadStatus($contract_id) {
         $contract = ContractService::fetchContractReadStatus($contract_id);
+
+        if( is_null($contract) )
+        {
+            return $this->sendErrorResponse('contract not found');
+        }
 
         return $this->sendSuccessResponse([
             'read' => ! is_null($contract->read_at)
