@@ -15,6 +15,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class ProcessXslFile implements ShouldQueue
 {
@@ -55,9 +56,9 @@ class ProcessXslFile implements ShouldQueue
         $readerType = json_decode($this->upload->file_meta)->extension === 'xls' ? \Maatwebsite\Excel\Excel::XLS : \Maatwebsite\Excel\Excel::XLSX;
         $this->upload->update(['status' => 'processing']);
         Excel::import(
-            new ContractsImport($this->upload), 
-            $this->getFile($this->upload->file_path), 
-            'local', 
+            new ContractsImport($this->upload),
+            $this->upload->file_path, //for cloudinary, use this: $this->getFile($this->upload->file_path), 
+            null, 
             $readerType
         );
         $this->upload->update(['status' => 'processed']);

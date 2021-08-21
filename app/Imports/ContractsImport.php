@@ -9,8 +9,11 @@ use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithUpserts;
 use Maatwebsite\Excel\Concerns\RemembersChunkOffset;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
-class ContractsImport implements ToModel, WithHeadingRow, WithUpserts, WithChunkReading, WithBatchInserts
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+
+class ContractsImport implements ToModel, WithHeadingRow, WithUpserts, WithChunkReading, WithBatchInserts, WithValidation
 {
     use RemembersChunkOffset;
 
@@ -62,5 +65,25 @@ class ContractsImport implements ToModel, WithHeadingRow, WithUpserts, WithChunk
     public function uniqueBy()
     {
         return 'idcontrato';
+    }
+
+    public function prepareForValidation($data, $index)
+    {
+        $data['datapublicacao'] = Date::excelToDateTimeObject($data['datapublicacao'])->format('Y-m-d');
+        $data['datacelebracaocontrato'] = Date::excelToDateTimeObject($data['datacelebracaocontrato'])->format('Y-m-d');
+
+        return $data;
+    }
+
+    /**
+     * List the validation rules
+     * @return array
+     */
+    public function rules(): array
+    {
+        return [
+            'dataPublicacao' => 'string',
+            'dataCelebracaoContrato' => 'string',
+        ];
     }
 }

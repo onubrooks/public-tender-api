@@ -6,28 +6,29 @@ use App\Jobs\ProcessXslFile;
 use App\Models\Contract;
 use App\Models\Upload;
 use Illuminate\Support\Facades\Storage;
-
 use Maatwebsite\Excel\Facades\Excel;
 
 class UploadService
 {
     public static function queueUpload($file, $title = null)
     {
-        $name = $file->getClientOriginalName();
-        // $status = Storage::disk('public')->put('uploads/' . $name, fopen($file, 'r+'));
-        $result = $file->storeOnCloudinaryAs('public_tender_uploads', time() . $name);
-        $path = $result->getSecurePath();
+        // $path = 'public/uploads/' . time() . $file->getClientOriginalName();
+        // Storage::disk('public')->put($path, fopen($file, 'r+'));
+        $path = Storage::putFile('public/uploads', $file);
+
+        // $result = $file->storeOnCloudinaryAs('public_tender_uploads', time() . $file->getClientOriginalName());
+        // $path = $result->getSecurePath();
+
         $file_meta = [
-            'size' => $result->getReadableSize(),
+            'size' => $file->getSize(),
             'extension' => $file->extension(),
-            'original_file_name' => $result->getOriginalFileName(),
-            'public_id' => $result->getPublicId(),
-            'type' => $result->getFileType(),
-            'time_uploaded' => $result->getTimeUploaded(),
+            'original_file_name' => $file->getClientOriginalName(),
+            'mime' => $file->getMimeType(),
+            'time_uploaded' => now(),
         ];
 
         $readerType = $file->extension() === 'xls' ? \Maatwebsite\Excel\Excel::XLS : \Maatwebsite\Excel\Excel::XLSX;
-        $items = Excel::toCollection(new Contract(), $file, 'local', $readerType);
+        $items = Excel::toCollection(new Contract(), $file, 'local', $readerType);// dd($items);
 
         $upload = Upload::create([
             'title' => $title,
