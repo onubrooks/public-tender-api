@@ -7,20 +7,27 @@ use Illuminate\Support\Carbon;
 
 class ContractService
 {
-    public static function searchContracts($search, $dataCelebracaoContrato = null, $precoContratual = null, $adjudicatarios = null)
+    public static function searchContracts($dataCelebracaoContrato = null, $precoContratual_lower = null, $precoContratual_upper, $adjudicatarios = null)
     {
         // search the following: dataCelebracaoContrato, precoContratual, adjudicatarios
-        $query = Contract::whereDate('dataCelebracaoContrato', Carbon::createFromFormat('Y-m-d', $search))
-            ->orWhere('precoContratual', $search)
-            ->orWhere('adjudicatarios', $search);
+        $query = Contract::whereNull('id');
         if (null !== $dataCelebracaoContrato || '' !== $dataCelebracaoContrato) {
             $query->orWhereDate('dataCelebracaoContrato', $dataCelebracaoContrato);
         }
-        if (null !== $precoContratual || '' !== $precoContratual) {
-            $query->orWhere('precoContratual', $precoContratual);
-        }
         if (null !== $adjudicatarios || '' !== $adjudicatarios) {
             $query->orWhere('adjudicatarios', $adjudicatarios);
+        }
+        if (null !== $precoContratual_lower && null !== $precoContratual_upper) {
+            // both upper and lower are present so use whereBetween
+            $query->orWhereBetween('precoContratual', [$precoContratual_lower, $precoContratual_upper]);
+        } else {
+            // either or both are absent so use where for those present
+            if (null !== $precoContratual_lower || '' !== $precoContratual_lower) {
+                $query->orWhere('precoContratual', $precoContratual_lower);
+            }
+            if (null !== $precoContratual_upper || '' !== $precoContratual_upper) {
+                $query->orWhere('adjudicatarios', $precoContratual_upper);
+            }
         }
 
         return $query->get();

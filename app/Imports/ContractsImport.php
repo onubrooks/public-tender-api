@@ -53,13 +53,13 @@ class ContractsImport implements ToModel, WithHeadingRow, WithUpserts, WithChunk
     // import in batches to drastically reduce the import duration.
     public function batchSize(): int
     {
-        return 100;
+        return 200;
     }
 
     // read file in chunks to mitigate increase in memory usage
     public function chunkSize(): int
     {
-        return 500;
+        return 600;
     }
 
     public function uniqueBy()
@@ -82,6 +82,18 @@ class ContractsImport implements ToModel, WithHeadingRow, WithUpserts, WithChunk
     public function rules(): array
     {
         return [
+            'idcontrato'  => 'numeric',
+            'nAnuncio'  => 'string',
+            'tipoContrato'  => 'string',
+            'tipoprocedimento'  => 'string',
+            'objectoContrato'  => 'string',
+            'adjudicantes'  => 'string',
+            'adjudicatarios'  => 'string',
+            'precoContratual'  => 'numeric',
+            'cpv'  => 'string',
+            'prazoExecucao'  => 'numeric',
+            'localExecucao'  => 'string',
+            'fundamentacao'  => 'string',
             'dataPublicacao' => 'string',
             'dataCelebracaoContrato' => 'string',
         ];

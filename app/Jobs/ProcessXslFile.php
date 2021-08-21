@@ -15,7 +15,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class ProcessXslFile implements ShouldQueue
 {
@@ -27,6 +27,13 @@ class ProcessXslFile implements ShouldQueue
      * @var int
      */
     public $tries = 3;
+
+    /**
+     * The number of seconds the job can run before timing out.
+     *
+     * @var int
+     */
+    public $timeout = 600;
 
     /**
      * The podcast instance.
@@ -52,19 +59,30 @@ class ProcessXslFile implements ShouldQueue
      */
     public function handle()
     {
-        $readerType =
-        $readerType = json_decode($this->upload->file_meta)->extension === 'xls' ? \Maatwebsite\Excel\Excel::XLS : \Maatwebsite\Excel\Excel::XLSX;
-        $this->upload->update(['status' => 'processing']);
-        Excel::import(
-            new ContractsImport($this->upload),
-            $this->upload->file_path, //for cloudinary, use this: $this->getFile($this->upload->file_path), 
-            null, 
-            $readerType
-        );
-        $this->upload->update(['status' => 'processed']);
+        try {
+            $readerType =
+            $readerType = json_decode($this->upload->file_meta)->extension === 'xls' ? 
+                \Maatwebsite\Excel\Excel::XLS : 
+                \Maatwebsite\Excel\Excel::XLSX;
+
+            $this->upload->update(['status' => 'processing']);
+
+            Excel::import(
+                new ContractsImport($this->upload),
+                $this->upload->file_path, //for cloudinary, use: $this->getFileFromRemoteStorage($this->upload->file_path), 
+                null,
+                $readerType
+            );
+
+            $this->upload->update(['status' => 'processed']);
+        } catch (\Exception $e) {
+            $this->upload->update(['status' => 'failed']);
+            Log::error($e);
+            throw $e; // rethrow to make job fail
+        }
     }
 
-    public function getFile($url)
+    public function getFileFromRemoteStorage($url)
     {
         //get name file by url and save in object-file
         $path_parts = pathinfo($url);

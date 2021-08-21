@@ -12,8 +12,6 @@ class UploadService
 {
     public static function queueUpload($file, $title = null)
     {
-        // $path = 'public/uploads/' . time() . $file->getClientOriginalName();
-        // Storage::disk('public')->put($path, fopen($file, 'r+'));
         $path = Storage::putFile('public/uploads', $file);
 
         // $result = $file->storeOnCloudinaryAs('public_tender_uploads', time() . $file->getClientOriginalName());
@@ -27,13 +25,20 @@ class UploadService
             'time_uploaded' => now(),
         ];
 
-        $readerType = $file->extension() === 'xls' ? \Maatwebsite\Excel\Excel::XLS : \Maatwebsite\Excel\Excel::XLSX;
-        $items = Excel::toCollection(new Contract(), $file, 'local', $readerType);// dd($items);
+        // if file size is less than 2mb, read and save it's row count
+        if($file->getSize() < 2000000)
+        {
+            $readerType = $file->extension() === 'xls' ? \Maatwebsite\Excel\Excel::XLS : \Maatwebsite\Excel\Excel::XLSX;
+            $items = Excel::toCollection(new Contract(), $file, 'local', $readerType);
+            $row_count = $items[0]->count() - 1;
+        } else {
+            $row_count = 'unknown due to huge file size';
+        }
 
         $upload = Upload::create([
             'title' => $title,
             'file_path' => $path,
-            'number_of_rows' => $items[0]->count() - 1,
+            'number_of_rows' => $row_count,
             'status' => 'queued',
             'file_meta' => json_encode($file_meta),
         ]);
