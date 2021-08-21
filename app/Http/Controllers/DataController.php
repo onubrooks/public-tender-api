@@ -9,6 +9,9 @@ use App\Services\ContractService;
 class DataController extends Controller
 {
     public function uploadForProcessing(Request $request) {
+        ini_set('max_execution_time', 360);
+        // ini_set('upload_max_filesize', '100M');
+        // ini_set('post_max_size', '100M');
         $request->validate([
             'title' => ['nullable', 'string'],
             'upload_file' => ['required', 'mimes:xls,xlsx'],
@@ -16,6 +19,8 @@ class DataController extends Controller
 
         $file = $request->file('upload_file');
         $upload = UploadService::queueUpload($file);
+
+        ini_set('max_execution_time', 60);
 
         return $this->sendSuccessResponse($upload, 'successfully queued for processing');
     }

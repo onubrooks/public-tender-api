@@ -31,3 +31,9 @@
 // post install commands:
 // php artisan storage:link
 // heroku ps:scale worker=1
+
+// You can also use the following command in order to find the location of the php.ini file:
+
+// php -i | grep php.ini
+
+// cd /app/.heroku/php/etc/php
