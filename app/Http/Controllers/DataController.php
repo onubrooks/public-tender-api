@@ -10,8 +10,6 @@ class DataController extends Controller
 {
     public function uploadForProcessing(Request $request) {
         ini_set('max_execution_time', 360);
-        // ini_set('upload_max_filesize', '100M');
-        // ini_set('post_max_size', '100M');
         $request->validate([
             'title' => ['nullable', 'string'],
             'upload_file' => ['required', 'mimes:xls,xlsx'],
