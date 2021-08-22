@@ -18,7 +18,7 @@ class DataController extends Controller
      * The data must follow the following format and number of columns as validations are in place:
      * idcontrato, nAnuncio, tipoContrato, tipoprocedimento, objectoContrato, adjudicantes, adjudicatarios, dataPublicacao, dataCelebracaoContrato, precoContratual, cpv, prazoExecucao, localExecucao, fundamentacao
      * 
-     * @bodyParam upload_file file The file to be uploaded
+     * @bodyParam upload_file file The file to be uploaded. Example C:\Users\onu\Downloads\contracts-medium-xls
      * @bodyParam title string An optional file title for the group of records. Example: 2016 Public Contracts
      *
      *
