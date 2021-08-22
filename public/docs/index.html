@@ -1,0 +1,956 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Onubrooks' Public Tender API</title>
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../docs/css/theme-default.style.css" media="screen">
+    <link rel="stylesheet" href="../docs/css/theme-default.print.css" media="print">
+    <script src="../docs/js/theme-default-3.8.0.js"></script>
+
+    <link rel="stylesheet"
+          href="//unpkg.com/@highlightjs/cdn-assets@10.7.2/styles/obsidian.min.css">
+    <script src="//unpkg.com/@highlightjs/cdn-assets@10.7.2/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <script src="//cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+    <script>
+        var baseUrl = "https://public-tender-api-ozcgz.ondigitalocean.app";
+    </script>
+    <script src="../docs/js/tryitout-3.8.0.js"></script>
+
+</head>
+
+<body data-languages="[&quot;bash&quot;,&quot;javascript&quot;]">
+<a href="#" id="nav-button">
+      <span>
+        MENU
+        <img src="../docs/images/navbar.png" alt="navbar-image" />
+      </span>
+</a>
+<div class="tocify-wrapper">
+                <div class="lang-selector">
+                            <a href="#" data-language-name="bash">bash</a>
+                            <a href="#" data-language-name="javascript">javascript</a>
+                    </div>
+        <div class="search">
+        <input type="text" class="search" id="input-search" placeholder="Search">
+    </div>
+    <ul class="search-results"></ul>
+
+    <ul id="toc">
+    </ul>
+
+            <ul class="toc-footer" id="toc-footer">
+                            <li><a href="../docs/collection.json">View Postman collection</a></li>
+                            <li><a href="../docs/openapi.yaml">View OpenAPI spec</a></li>
+                            <li><a href="http://github.com/knuckleswtf/scribe">Documentation powered by Scribe ✍</a></li>
+                    </ul>
+            <ul class="toc-footer" id="last-updated">
+            <li>Last updated: August 22 2021</li>
+        </ul>
+</div>
+<div class="page-wrapper">
+    <div class="dark-box"></div>
+    <div class="content">
+        <h1>Introduction</h1>
+<p>A fast and simple API that allows users users to upload data in xls format to the system. The API supports searching, filtering and checking the status of the uploads</p>
+<p>This documentation aims to provide all the information you need to work with our API.</p>
+<aside>As you scroll, you'll see code examples for working with the API in different programming languages in the dark area to the right (or as part of the content on mobile).
+You can switch the language used with the tabs at the top right (or from the nav menu at the top left on mobile).</aside>
+<blockquote>
+<p>Base URL</p>
+</blockquote>
+<pre><code class="language-yaml">https://public-tender-api-ozcgz.ondigitalocean.app</code></pre>
+
+        <h1>Authenticating requests</h1>
+<p>This API is not authenticated.</p>
+
+        <h1 id="contracts">Contracts</h1>
+
+    
+
+            <h2 id="contracts-GETapi-fetch-contract--contract_id-">Fetch Contract
+
+This endpoint fetches the contract, identified by the id in the url parameter. 
+If it fetches successfully, the read status of the contract will be updated with a timestamp.
+
+Otherwise, the request will fail with a 400 not found error, and an error field.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-fetch-contract--contract_id-">
+<blockquote>Example request:</blockquote>
+
+
+<pre><code class="language-bash">curl --request GET \
+    --get "https://public-tender-api-ozcgz.ondigitalocean.app/api/fetch-contract/1" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre>
+
+<pre><code class="language-javascript">const url = new URL(
+    "https://public-tender-api-ozcgz.ondigitalocean.app/api/fetch-contract/1"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre>
+</span>
+
+<span id="example-responses-GETapi-fetch-contract--contract_id-">
+            <blockquote>
+            <p>Example response (400, Service is down or an unexpected error occurred):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">.</code>
+ </pre>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 56
+access-control-allow-origin: *
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;message&quot;: &quot;successfully fetched contract&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;idcontrato&quot;: 2265302,
+        &quot;nAnuncio&quot;: &quot;2574\/2010&quot;,
+        &quot;tipoContrato&quot;: &quot;Empreitadas de obras p&uacute;blicas&quot;,
+        &quot;tipoprocedimento&quot;: &quot;Concurso p&uacute;blico&quot;,
+        &quot;objectoContrato&quot;: &quot;09\/2016\/EMP\/DGR _ EN256 Variante &agrave; ponte do Albard&atilde;o, incluindo nova ponte sobre o rio Deg&eacute;be&quot;,
+        &quot;adjudicantes&quot;: &quot;504598686 - EP - ESTRADAS DE PORTUGAL, S.A&quot;,
+        &quot;adjudicatarios&quot;: &quot;502496878 - CONSTRU&Ccedil;&Otilde;ES PRAGOSA, S.A.&quot;,
+        &quot;dataPublicacao&quot;: &quot;2016-06-29&quot;,
+        &quot;dataCelebracaoContrato&quot;: &quot;2016-05-31&quot;,
+        &quot;precoContratual&quot;: &quot;2605654.08&quot;,
+        &quot;cpv&quot;: &quot;45233142-6 - Repara&ccedil;&atilde;o de estradas&quot;,
+        &quot;prazoExecucao&quot;: 300,
+        &quot;localExecucao&quot;: &quot;Portugal, Portugal Continental&quot;,
+        &quot;fundamentacao&quot;: &quot;Artigo 19.&ordm;, al&iacute;nea b) do C&oacute;digo dos Contratos P&uacute;blicos&quot;,
+        &quot;upload_id&quot;: 2,
+        &quot;batch_id&quot;: 2,
+        &quot;read_at&quot;: &quot;2021-08-22T15:20:40.568722Z&quot;,
+        &quot;created_at&quot;: &quot;2021-08-22T15:20:27.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2021-08-22T15:20:40.000000Z&quot;
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-fetch-contract--contract_id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-fetch-contract--contract_id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-fetch-contract--contract_id-"></code></pre>
+</span>
+<span id="execution-error-GETapi-fetch-contract--contract_id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-fetch-contract--contract_id-"></code></pre>
+</span>
+<form id="form-GETapi-fetch-contract--contract_id-" data-method="GET"
+      data-path="api/fetch-contract/{contract_id}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-fetch-contract--contract_id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-fetch-contract--contract_id-"
+                    onclick="tryItOut('GETapi-fetch-contract--contract_id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-fetch-contract--contract_id-"
+                    onclick="cancelTryOut('GETapi-fetch-contract--contract_id-');" hidden>Cancel
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-fetch-contract--contract_id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/fetch-contract/{contract_id}</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>contract_id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="contract_id"
+               data-endpoint="GETapi-fetch-contract--contract_id-"
+               data-component="url" required  hidden>
+    <br>
+<p>The ID of the contract.</p>            </p>
+                    </form>
+
+    <h3>Response</h3>
+    <h4 class="fancy-heading-panel"><b>Response Fields</b></h4>
+            <p>
+            <b><code>status</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<br>
+<p>The status of this API (<code>success</code> or <code>error</code>).</p>        </p>
+            <p>
+            <b><code>message</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<br>
+<p>The service message based on the status of the call.</p>        </p>
+            <p>
+            <b><code>data</code></b>&nbsp;&nbsp;<small>object</small>  &nbsp;
+<br>
+<p>The contract with the given ID.</p>        </p>
+                <h2 id="contracts-GETapi-contract-read-status--contract_id-">Fetch Contract Read Status  
+
+This endpoint fetches the read status of a contract, identified by its ID.
+If the contract exists, its status is fetched and returned.
+
+Otherwise, the request will fail with a 400 not found error, and an error message.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-contract-read-status--contract_id-">
+<blockquote>Example request:</blockquote>
+
+
+<pre><code class="language-bash">curl --request GET \
+    --get "https://public-tender-api-ozcgz.ondigitalocean.app/api/contract-read-status/1" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre>
+
+<pre><code class="language-javascript">const url = new URL(
+    "https://public-tender-api-ozcgz.ondigitalocean.app/api/contract-read-status/1"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre>
+</span>
+
+<span id="example-responses-GETapi-contract-read-status--contract_id-">
+            <blockquote>
+            <p>Example response (400, Service is down or an unexpected error occurred):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">.</code>
+ </pre>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 55
+access-control-allow-origin: *
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;message&quot;: &quot;successfully fetched contract read status&quot;,
+    &quot;data&quot;: {
+        &quot;read&quot;: false
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-contract-read-status--contract_id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-contract-read-status--contract_id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-contract-read-status--contract_id-"></code></pre>
+</span>
+<span id="execution-error-GETapi-contract-read-status--contract_id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-contract-read-status--contract_id-"></code></pre>
+</span>
+<form id="form-GETapi-contract-read-status--contract_id-" data-method="GET"
+      data-path="api/contract-read-status/{contract_id}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-contract-read-status--contract_id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-contract-read-status--contract_id-"
+                    onclick="tryItOut('GETapi-contract-read-status--contract_id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-contract-read-status--contract_id-"
+                    onclick="cancelTryOut('GETapi-contract-read-status--contract_id-');" hidden>Cancel
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-contract-read-status--contract_id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/contract-read-status/{contract_id}</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>contract_id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="contract_id"
+               data-endpoint="GETapi-contract-read-status--contract_id-"
+               data-component="url" required  hidden>
+    <br>
+<p>The ID of the contract.</p>            </p>
+                    </form>
+
+    <h3>Response</h3>
+    <h4 class="fancy-heading-panel"><b>Response Fields</b></h4>
+            <p>
+            <b><code>status</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<br>
+<p>The status of this API (<code>success</code> or <code>error</code>).</p>        </p>
+            <p>
+            <b><code>message</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<br>
+<p>The service message based on the status of the call.</p>        </p>
+            <p>
+            <b><code>data</code></b>&nbsp;&nbsp;<small>object</small>  &nbsp;
+<br>
+<p>The contract read status.</p>        </p>
+                <h2 id="contracts-GETapi-search-contracts">Search Contracts
+
+This endpoint allows you to search for contracts based on the following columns:
+dataCelebracaoContrato, precoContratual, adjudicatarios
+Any of the columns that matches the data in each column will be returned.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-search-contracts">
+<blockquote>Example request:</blockquote>
+
+
+<pre><code class="language-bash">curl --request GET \
+    --get "https://public-tender-api-ozcgz.ondigitalocean.app/api/search-contracts?dataCelebracaoContrato=2016-08-09&amp;precoContratual_lower=2605654.08&amp;precoContratual_upper=2605654.08&amp;adjudicatarios=502496878+-+CONSTRU%C3%87%C3%95ES+PRAGOSA%2C+S.A." \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre>
+
+<pre><code class="language-javascript">const url = new URL(
+    "https://public-tender-api-ozcgz.ondigitalocean.app/api/search-contracts"
+);
+
+const params = {
+    "dataCelebracaoContrato": "2016-08-09",
+    "precoContratual_lower": "2605654.08",
+    "precoContratual_upper": "2605654.08",
+    "adjudicatarios": "502496878 - CONSTRUÇÕES PRAGOSA, S.A.",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre>
+</span>
+
+<span id="example-responses-GETapi-search-contracts">
+            <blockquote>
+            <p>Example response (400, Service is down or an unexpected error occurred):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">.</code>
+ </pre>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 57
+access-control-allow-origin: *
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;message&quot;: &quot;successfully fetched contracts&quot;,
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;idcontrato&quot;: 2265302,
+            &quot;nAnuncio&quot;: &quot;2574\/2010&quot;,
+            &quot;tipoContrato&quot;: &quot;Empreitadas de obras p&uacute;blicas&quot;,
+            &quot;tipoprocedimento&quot;: &quot;Concurso p&uacute;blico&quot;,
+            &quot;objectoContrato&quot;: &quot;09\/2016\/EMP\/DGR _ EN256 Variante &agrave; ponte do Albard&atilde;o, incluindo nova ponte sobre o rio Deg&eacute;be&quot;,
+            &quot;adjudicantes&quot;: &quot;504598686 - EP - ESTRADAS DE PORTUGAL, S.A&quot;,
+            &quot;adjudicatarios&quot;: &quot;502496878 - CONSTRU&Ccedil;&Otilde;ES PRAGOSA, S.A.&quot;,
+            &quot;dataPublicacao&quot;: &quot;2016-06-29&quot;,
+            &quot;dataCelebracaoContrato&quot;: &quot;2016-05-31&quot;,
+            &quot;precoContratual&quot;: &quot;2605654.08&quot;,
+            &quot;cpv&quot;: &quot;45233142-6 - Repara&ccedil;&atilde;o de estradas&quot;,
+            &quot;prazoExecucao&quot;: 300,
+            &quot;localExecucao&quot;: &quot;Portugal, Portugal Continental&quot;,
+            &quot;fundamentacao&quot;: &quot;Artigo 19.&ordm;, al&iacute;nea b) do C&oacute;digo dos Contratos P&uacute;blicos&quot;,
+            &quot;upload_id&quot;: 2,
+            &quot;batch_id&quot;: 2,
+            &quot;read_at&quot;: null,
+            &quot;created_at&quot;: &quot;2021-08-22T15:20:27.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2021-08-22T15:20:27.000000Z&quot;
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-search-contracts" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-search-contracts"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-search-contracts"></code></pre>
+</span>
+<span id="execution-error-GETapi-search-contracts" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-search-contracts"></code></pre>
+</span>
+<form id="form-GETapi-search-contracts" data-method="GET"
+      data-path="api/search-contracts"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-search-contracts', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-search-contracts"
+                    onclick="tryItOut('GETapi-search-contracts');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-search-contracts"
+                    onclick="cancelTryOut('GETapi-search-contracts');" hidden>Cancel
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-search-contracts" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/search-contracts</code></b>
+        </p>
+                        <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                    <p>
+                <b><code>dataCelebracaoContrato</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="dataCelebracaoContrato"
+               data-endpoint="GETapi-search-contracts"
+               data-component="query" required  hidden>
+    <br>
+<p>date The item to search for in the dataCelebracaoContrato column.</p>            </p>
+                    <p>
+                <b><code>precoContratual_lower</code></b>&nbsp;&nbsp;<small>number</small>     <i>optional</i> &nbsp;
+                <input type="number"
+               name="precoContratual_lower"
+               data-endpoint="GETapi-search-contracts"
+               data-component="query"  hidden>
+    <br>
+<p>optional The lower range to search for in the precoContratual column.</p>            </p>
+                    <p>
+                <b><code>precoContratual_upper</code></b>&nbsp;&nbsp;<small>number</small>     <i>optional</i> &nbsp;
+                <input type="number"
+               name="precoContratual_upper"
+               data-endpoint="GETapi-search-contracts"
+               data-component="query"  hidden>
+    <br>
+<p>optional The upper range to search for in the precoContratual column.</p>            </p>
+                    <p>
+                <b><code>adjudicatarios</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="adjudicatarios"
+               data-endpoint="GETapi-search-contracts"
+               data-component="query"  hidden>
+    <br>
+<p>optional The item to search for in the adjudicatarios column.</p>            </p>
+                </form>
+
+    <h3>Response</h3>
+    <h4 class="fancy-heading-panel"><b>Response Fields</b></h4>
+            <p>
+            <b><code>status</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<br>
+<p>The status of this API (<code>success</code> or <code>error</code>).</p>        </p>
+            <p>
+            <b><code>message</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<br>
+<p>The service message based on the status of the call.</p>        </p>
+            <p>
+            <b><code>data</code></b>&nbsp;&nbsp;<small>array</small>  &nbsp;
+<br>
+<p>List of contracts that match the search.</p>        </p>
+            <h1 id="uploads">Uploads</h1>
+
+    
+
+            <h2 id="uploads-POSTapi-upload-for-processing">Upload Data for Processing
+
+This endpoint allows users to upload .xls and .xlsx files for processing. 
+The data must follow the following format and number of columns as validations are in place:
+idcontrato, nAnuncio, tipoContrato, tipoprocedimento, objectoContrato, adjudicantes, adjudicatarios, dataPublicacao, dataCelebracaoContrato, precoContratual, cpv, prazoExecucao, localExecucao, fundamentacao</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-upload-for-processing">
+<blockquote>Example request:</blockquote>
+
+
+<pre><code class="language-bash">curl --request POST \
+    "https://public-tender-api-ozcgz.ondigitalocean.app/api/upload-for-processing" \
+    --header "Content-Type: multipart/form-data" \
+    --header "Accept: application/json" \
+    --form "title=2016 Public Contracts" \
+    --form "upload_file=@C:\Users\onu\AppData\Local\Temp\php5F0C.tmp" </code></pre>
+
+<pre><code class="language-javascript">const url = new URL(
+    "https://public-tender-api-ozcgz.ondigitalocean.app/api/upload-for-processing"
+);
+
+const headers = {
+    "Content-Type": "multipart/form-data",
+    "Accept": "application/json",
+};
+
+const body = new FormData();
+body.append('title', '2016 Public Contracts');
+body.append('upload_file', document.querySelector('input[name="upload_file"]').files[0]);
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body,
+}).then(response =&gt; response.json());</code></pre>
+</span>
+
+<span id="example-responses-POSTapi-upload-for-processing">
+            <blockquote>
+            <p>Example response (400, Service is down or an unexpected error occurred):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">.</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-upload-for-processing" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-upload-for-processing"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-upload-for-processing"></code></pre>
+</span>
+<span id="execution-error-POSTapi-upload-for-processing" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-upload-for-processing"></code></pre>
+</span>
+<form id="form-POSTapi-upload-for-processing" data-method="POST"
+      data-path="api/upload-for-processing"
+      data-authed="0"
+      data-hasfiles="1"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"multipart\/form-data","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-upload-for-processing', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-upload-for-processing"
+                    onclick="tryItOut('POSTapi-upload-for-processing');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-upload-for-processing"
+                    onclick="cancelTryOut('POSTapi-upload-for-processing');" hidden>Cancel
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-upload-for-processing" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/upload-for-processing</code></b>
+        </p>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>upload_file</code></b>&nbsp;&nbsp;<small>file</small>     <i>optional</i> &nbsp;
+                <input type="file"
+               name="upload_file"
+               data-endpoint="POSTapi-upload-for-processing"
+               data-component="body"  hidden>
+    <br>
+<p>The file to be uploaded. Example C:\Users\onu\Downloads\contracts-medium-xls</p>        </p>
+                <p>
+            <b><code>title</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="title"
+               data-endpoint="POSTapi-upload-for-processing"
+               data-component="body"  hidden>
+    <br>
+<p>An optional file title for the group of records.</p>        </p>
+    
+    </form>
+
+    <h3>Response</h3>
+    <h4 class="fancy-heading-panel"><b>Response Fields</b></h4>
+            <p>
+            <b><code>status</code></b>&nbsp;&nbsp;  &nbsp;
+<br>
+<p>The status of this API (<code>success</code> or <code>error</code>).</p>        </p>
+            <p>
+            <b><code>message</code></b>&nbsp;&nbsp;  &nbsp;
+<br>
+<p>The service message based on the status of the call.</p>        </p>
+            <p>
+            <b><code>data</code></b>&nbsp;&nbsp;  &nbsp;
+<br>
+<p>'Upload' record just created.</p>        </p>
+                <h2 id="uploads-GETapi-fetch-uploads">Fetch Uploads
+
+Fetch a list of all uploads to the system. If everything is okay, you&#039;ll get a 200 OK response.
+
+Otherwise, the request will fail with a 400 error, and an error field.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-fetch-uploads">
+<blockquote>Example request:</blockquote>
+
+
+<pre><code class="language-bash">curl --request GET \
+    --get "https://public-tender-api-ozcgz.ondigitalocean.app/api/fetch-uploads" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre>
+
+<pre><code class="language-javascript">const url = new URL(
+    "https://public-tender-api-ozcgz.ondigitalocean.app/api/fetch-uploads"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre>
+</span>
+
+<span id="example-responses-GETapi-fetch-uploads">
+            <blockquote>
+            <p>Example response (400, Service is down or an unexpected error occurred):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">.</code>
+ </pre>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 59
+access-control-allow-origin: *
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;message&quot;: &quot;successfully fetched uploads&quot;,
+    &quot;data&quot;: [
+        {
+            &quot;title&quot;: null,
+            &quot;status&quot;: &quot;processing&quot;,
+            &quot;file_path&quot;: &quot;public\/uploads\/N1t5AXjFwMqs10XSuSUIQOhvmoj3YlFFAXm4MiPc.xlsx&quot;,
+            &quot;file_meta&quot;: &quot;{\&quot;size\&quot;:15187495,\&quot;extension\&quot;:\&quot;xlsx\&quot;,\&quot;original_file_name\&quot;:\&quot;contratos2016.xlsx\&quot;,\&quot;mime\&quot;:\&quot;application\\\/vnd.openxmlformats-officedocument.spreadsheetml.sheet\&quot;,\&quot;time_uploaded\&quot;:\&quot;2021-08-22T14:06:16.276111Z\&quot;}&quot;
+        },
+        {
+            &quot;title&quot;: null,
+            &quot;status&quot;: &quot;processed&quot;,
+            &quot;file_path&quot;: &quot;public\/uploads\/jzGFR13mfxubfeJDo2QEGanrdmomV0HXZA5Tjc6R.xlsx&quot;,
+            &quot;file_meta&quot;: &quot;{\&quot;size\&quot;:11960,\&quot;extension\&quot;:\&quot;xlsx\&quot;,\&quot;original_file_name\&quot;:\&quot;contracts-small-xlsx.xlsx\&quot;,\&quot;mime\&quot;:\&quot;application\\\/vnd.openxmlformats-officedocument.spreadsheetml.sheet\&quot;,\&quot;time_uploaded\&quot;:\&quot;2021-08-22T15:19:25.226034Z\&quot;}&quot;
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-fetch-uploads" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-fetch-uploads"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-fetch-uploads"></code></pre>
+</span>
+<span id="execution-error-GETapi-fetch-uploads" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-fetch-uploads"></code></pre>
+</span>
+<form id="form-GETapi-fetch-uploads" data-method="GET"
+      data-path="api/fetch-uploads"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-fetch-uploads', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-fetch-uploads"
+                    onclick="tryItOut('GETapi-fetch-uploads');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-fetch-uploads"
+                    onclick="cancelTryOut('GETapi-fetch-uploads');" hidden>Cancel
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-fetch-uploads" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/fetch-uploads</code></b>
+        </p>
+                    </form>
+
+    <h3>Response</h3>
+    <h4 class="fancy-heading-panel"><b>Response Fields</b></h4>
+            <p>
+            <b><code>status</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<br>
+<p>The status of this API (<code>success</code> or <code>error</code>).</p>        </p>
+            <p>
+            <b><code>message</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<br>
+<p>The service message based on the status of the call.</p>        </p>
+            <p>
+            <b><code>data</code></b>&nbsp;&nbsp;<small>array</small>  &nbsp;
+<br>
+<p>List of all uploads  (both processed and unprocessed) sent to the API.</p>        </p>
+                <h2 id="uploads-GETapi-fetch-upload-status--upload_id-">Fetch Upload Status 
+
+This endpoint fetches the status of a file previously uploaded. It accepts the ID of the upload and checks the status. 
+The status can be `queued`, `processing` or `processed`
+
+A not found error is returned if the upload ID doesn&#039;t match any item on the system.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-fetch-upload-status--upload_id-">
+<blockquote>Example request:</blockquote>
+
+
+<pre><code class="language-bash">curl --request GET \
+    --get "https://public-tender-api-ozcgz.ondigitalocean.app/api/fetch-upload-status/1" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre>
+
+<pre><code class="language-javascript">const url = new URL(
+    "https://public-tender-api-ozcgz.ondigitalocean.app/api/fetch-upload-status/1"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre>
+</span>
+
+<span id="example-responses-GETapi-fetch-upload-status--upload_id-">
+            <blockquote>
+            <p>Example response (400, Service is down or an unexpected error occurred):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">.</code>
+ </pre>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 58
+access-control-allow-origin: *
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;message&quot;: &quot;successfully fetched upload status&quot;,
+    &quot;data&quot;: {
+        &quot;status&quot;: &quot;processing&quot;
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-fetch-upload-status--upload_id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-fetch-upload-status--upload_id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-fetch-upload-status--upload_id-"></code></pre>
+</span>
+<span id="execution-error-GETapi-fetch-upload-status--upload_id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-fetch-upload-status--upload_id-"></code></pre>
+</span>
+<form id="form-GETapi-fetch-upload-status--upload_id-" data-method="GET"
+      data-path="api/fetch-upload-status/{upload_id}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-fetch-upload-status--upload_id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-fetch-upload-status--upload_id-"
+                    onclick="tryItOut('GETapi-fetch-upload-status--upload_id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-fetch-upload-status--upload_id-"
+                    onclick="cancelTryOut('GETapi-fetch-upload-status--upload_id-');" hidden>Cancel
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-fetch-upload-status--upload_id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/fetch-upload-status/{upload_id}</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>upload_id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="upload_id"
+               data-endpoint="GETapi-fetch-upload-status--upload_id-"
+               data-component="url" required  hidden>
+    <br>
+<p>The ID of the upload.</p>            </p>
+                    </form>
+
+    <h3>Response</h3>
+    <h4 class="fancy-heading-panel"><b>Response Fields</b></h4>
+            <p>
+            <b><code>status</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<br>
+<p>The status of this API (<code>success</code> or <code>error</code>).</p>        </p>
+            <p>
+            <b><code>message</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<br>
+<p>The service message based on the status of the call.</p>        </p>
+            <p>
+            <b><code>data</code></b>&nbsp;&nbsp;<small>object</small>  &nbsp;
+<br>
+<p>The status of the upload.</p>        </p>
+        
+
+        
+    </div>
+    <div class="dark-box">
+                    <div class="lang-selector">
+                                    <a href="#" data-language-name="bash">bash</a>
+                                    <a href="#" data-language-name="javascript">javascript</a>
+                            </div>
+            </div>
+</div>
+<script>
+    $(function () {
+        var exampleLanguages = ["bash","javascript"];
+        setupLanguages(exampleLanguages);
+    });
+</script>
+</body>
+</html>

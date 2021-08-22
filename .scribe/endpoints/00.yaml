@@ -1,0 +1,185 @@
+name: Contracts
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: 'api/fetch-contract/{contract_id}'
+    metadata:
+      title: |-
+        Fetch Contract
+
+        This endpoint fetches the contract, identified by the id in the url parameter. 
+        If it fetches successfully, the read status of the contract will be updated with a timestamp.
+
+        Otherwise, the request will fail with a 400 not found error, and an error field.
+      description: ''
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      contract_id:
+        name: contract_id
+        description: 'The ID of the contract.'
+        required: true
+        example: 1
+        type: integer
+    queryParameters: []
+    bodyParameters: []
+    responses:
+      -
+        status: 400
+        content: .
+        headers: []
+        description: '400, Service is down or an unexpected error occurred'
+      -
+        status: 200
+        content: '{"status":"success","message":"successfully fetched contract","data":{"id":1,"idcontrato":2265302,"nAnuncio":"2574\/2010","tipoContrato":"Empreitadas de obras p\u00fablicas","tipoprocedimento":"Concurso p\u00fablico","objectoContrato":"09\/2016\/EMP\/DGR _ EN256 Variante \u00e0 ponte do Albard\u00e3o, incluindo nova ponte sobre o rio Deg\u00e9be","adjudicantes":"504598686 - EP - ESTRADAS DE PORTUGAL, S.A","adjudicatarios":"502496878 - CONSTRU\u00c7\u00d5ES PRAGOSA, S.A.","dataPublicacao":"2016-06-29","dataCelebracaoContrato":"2016-05-31","precoContratual":"2605654.08","cpv":"45233142-6 - Repara\u00e7\u00e3o de estradas","prazoExecucao":300,"localExecucao":"Portugal, Portugal Continental","fundamentacao":"Artigo 19.\u00ba, al\u00ednea b) do C\u00f3digo dos Contratos P\u00fablicos","upload_id":2,"batch_id":2,"read_at":"2021-08-22T15:20:40.568722Z","created_at":"2021-08-22T15:20:27.000000Z","updated_at":"2021-08-22T15:20:40.000000Z"}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '56'
+          access-control-allow-origin: '*'
+        description: null
+    responseFields:
+      status:
+        name: status
+        description: 'The status of this API (`success` or `error`).'
+        type: string
+      message:
+        name: message
+        description: 'The service message based on the status of the call.'
+        type: string
+      data:
+        name: data
+        description: 'The contract with the given ID.'
+        type: object
+  -
+    httpMethods:
+      - GET
+    uri: 'api/contract-read-status/{contract_id}'
+    metadata:
+      title: |-
+        Fetch Contract Read Status  
+
+        This endpoint fetches the read status of a contract, identified by its ID.
+        If the contract exists, its status is fetched and returned.
+
+        Otherwise, the request will fail with a 400 not found error, and an error message.
+      description: ''
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      contract_id:
+        name: contract_id
+        description: 'The ID of the contract.'
+        required: true
+        example: 1
+        type: integer
+    queryParameters: []
+    bodyParameters: []
+    responses:
+      -
+        status: 400
+        content: .
+        headers: []
+        description: '400, Service is down or an unexpected error occurred'
+      -
+        status: 200
+        content: '{"status":"success","message":"successfully fetched contract read status","data":{"read":false}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '55'
+          access-control-allow-origin: '*'
+        description: null
+    responseFields:
+      status:
+        name: status
+        description: 'The status of this API (`success` or `error`).'
+        type: string
+      message:
+        name: message
+        description: 'The service message based on the status of the call.'
+        type: string
+      data:
+        name: data
+        description: 'The contract read status.'
+        type: object
+  -
+    httpMethods:
+      - GET
+    uri: api/search-contracts
+    metadata:
+      title: |-
+        Search Contracts
+
+        This endpoint allows you to search for contracts based on the following columns:
+        dataCelebracaoContrato, precoContratual, adjudicatarios
+        Any of the columns that matches the data in each column will be returned.
+      description: ''
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters:
+      dataCelebracaoContrato:
+        name: dataCelebracaoContrato
+        description: 'date The item to search for in the dataCelebracaoContrato column.'
+        required: true
+        example: '2016-08-09'
+        type: string
+      precoContratual_lower:
+        name: precoContratual_lower
+        description: 'optional The lower range to search for in the precoContratual column.'
+        required: false
+        example: 2605654.08
+        type: number
+      precoContratual_upper:
+        name: precoContratual_upper
+        description: 'optional The upper range to search for in the precoContratual column.'
+        required: false
+        example: 2605654.08
+        type: number
+      adjudicatarios:
+        name: adjudicatarios
+        description: 'optional The item to search for in the adjudicatarios column.'
+        required: false
+        example: '502496878 - CONSTRUÇÕES PRAGOSA, S.A.'
+        type: string
+    bodyParameters: []
+    responses:
+      -
+        status: 400
+        content: .
+        headers: []
+        description: '400, Service is down or an unexpected error occurred'
+      -
+        status: 200
+        content: '{"status":"success","message":"successfully fetched contracts","data":[{"id":1,"idcontrato":2265302,"nAnuncio":"2574\/2010","tipoContrato":"Empreitadas de obras p\u00fablicas","tipoprocedimento":"Concurso p\u00fablico","objectoContrato":"09\/2016\/EMP\/DGR _ EN256 Variante \u00e0 ponte do Albard\u00e3o, incluindo nova ponte sobre o rio Deg\u00e9be","adjudicantes":"504598686 - EP - ESTRADAS DE PORTUGAL, S.A","adjudicatarios":"502496878 - CONSTRU\u00c7\u00d5ES PRAGOSA, S.A.","dataPublicacao":"2016-06-29","dataCelebracaoContrato":"2016-05-31","precoContratual":"2605654.08","cpv":"45233142-6 - Repara\u00e7\u00e3o de estradas","prazoExecucao":300,"localExecucao":"Portugal, Portugal Continental","fundamentacao":"Artigo 19.\u00ba, al\u00ednea b) do C\u00f3digo dos Contratos P\u00fablicos","upload_id":2,"batch_id":2,"read_at":null,"created_at":"2021-08-22T15:20:27.000000Z","updated_at":"2021-08-22T15:20:27.000000Z"}]}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '57'
+          access-control-allow-origin: '*'
+        description: null
+    responseFields:
+      status:
+        name: status
+        description: 'The status of this API (`success` or `error`).'
+        type: string
+      message:
+        name: message
+        description: 'The service message based on the status of the call.'
+        type: string
+      data:
+        name: data
+        description: 'List of contracts that match the search.'
+        type: array

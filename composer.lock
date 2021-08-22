@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d0c5b690c6da7ffcfa94cef53adcb96a",
+    "content-hash": "79801d98790a3683e41b3eff5ac43617",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1312,16 +1312,16 @@
         },
         {
             "name": "knuckleswtf/scribe",
-            "version": "3.9.0",
+            "version": "3.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/knuckleswtf/scribe.git",
-                "reference": "4395bf56952c8a6dabe961829dac5cdacb45f1d7"
+                "reference": "058559e9b26695aa9b9f3284ba64407dc480e01a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/knuckleswtf/scribe/zipball/4395bf56952c8a6dabe961829dac5cdacb45f1d7",
-                "reference": "4395bf56952c8a6dabe961829dac5cdacb45f1d7",
+                "url": "https://api.github.com/repos/knuckleswtf/scribe/zipball/058559e9b26695aa9b9f3284ba64407dc480e01a",
+                "reference": "058559e9b26695aa9b9f3284ba64407dc480e01a",
                 "shasum": ""
             },
             "require": {
@@ -1398,7 +1398,7 @@
             ],
             "support": {
                 "issues": "https://github.com/knuckleswtf/scribe/issues",
-                "source": "https://github.com/knuckleswtf/scribe/tree/3.9.0"
+                "source": "https://github.com/knuckleswtf/scribe/tree/3.8.0"
             },
             "funding": [
                 {
@@ -1406,7 +1406,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2021-08-21T09:15:23+00:00"
+            "time": "2021-07-28T20:30:22+00:00"
         },
         {
             "name": "laravel/framework",

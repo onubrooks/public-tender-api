@@ -1,0 +1,156 @@
+name: Uploads
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/upload-for-processing
+    metadata:
+      title: |-
+        Upload Data for Processing
+
+        This endpoint allows users to upload .xls and .xlsx files for processing. 
+        The data must follow the following format and number of columns as validations are in place:
+        idcontrato, nAnuncio, tipoContrato, tipoprocedimento, objectoContrato, adjudicantes, adjudicatarios, dataPublicacao, dataCelebracaoContrato, precoContratual, cpv, prazoExecucao, localExecucao, fundamentacao
+      description: ''
+      authenticated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      upload_file:
+        name: upload_file
+        description: 'The file to be uploaded. Example C:\Users\onu\Downloads\contracts-medium-xls'
+        required: false
+        example: null
+        type: file
+      title:
+        name: title
+        description: 'An optional file title for the group of records.'
+        required: false
+        example: '2016 Public Contracts'
+        type: string
+    responses:
+      -
+        status: 400
+        content: .
+        headers: []
+        description: '400, Service is down or an unexpected error occurred'
+    responseFields:
+      status:
+        name: status
+        description: 'The status of this API (`success` or `error`).'
+        type: ''
+      message:
+        name: message
+        description: 'The service message based on the status of the call.'
+        type: ''
+      data:
+        name: data
+        description: '''Upload'' record just created.'
+        type: ''
+  -
+    httpMethods:
+      - GET
+    uri: api/fetch-uploads
+    metadata:
+      title: |-
+        Fetch Uploads
+
+        Fetch a list of all uploads to the system. If everything is okay, you'll get a 200 OK response.
+
+        Otherwise, the request will fail with a 400 error, and an error field.
+      description: ''
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses:
+      -
+        status: 400
+        content: .
+        headers: []
+        description: '400, Service is down or an unexpected error occurred'
+      -
+        status: 200
+        content: '{"status":"success","message":"successfully fetched uploads","data":[{"title":null,"status":"processing","file_path":"public\/uploads\/N1t5AXjFwMqs10XSuSUIQOhvmoj3YlFFAXm4MiPc.xlsx","file_meta":"{\"size\":15187495,\"extension\":\"xlsx\",\"original_file_name\":\"contratos2016.xlsx\",\"mime\":\"application\\\/vnd.openxmlformats-officedocument.spreadsheetml.sheet\",\"time_uploaded\":\"2021-08-22T14:06:16.276111Z\"}"},{"title":null,"status":"processed","file_path":"public\/uploads\/jzGFR13mfxubfeJDo2QEGanrdmomV0HXZA5Tjc6R.xlsx","file_meta":"{\"size\":11960,\"extension\":\"xlsx\",\"original_file_name\":\"contracts-small-xlsx.xlsx\",\"mime\":\"application\\\/vnd.openxmlformats-officedocument.spreadsheetml.sheet\",\"time_uploaded\":\"2021-08-22T15:19:25.226034Z\"}"}]}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '59'
+          access-control-allow-origin: '*'
+        description: null
+    responseFields:
+      status:
+        name: status
+        description: 'The status of this API (`success` or `error`).'
+        type: string
+      message:
+        name: message
+        description: 'The service message based on the status of the call.'
+        type: string
+      data:
+        name: data
+        description: 'List of all uploads  (both processed and unprocessed) sent to the API.'
+        type: array
+  -
+    httpMethods:
+      - GET
+    uri: 'api/fetch-upload-status/{upload_id}'
+    metadata:
+      title: |-
+        Fetch Upload Status 
+
+        This endpoint fetches the status of a file previously uploaded. It accepts the ID of the upload and checks the status. 
+        The status can be `queued`, `processing` or `processed`
+
+        A not found error is returned if the upload ID doesn't match any item on the system.
+      description: ''
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      upload_id:
+        name: upload_id
+        description: 'The ID of the upload.'
+        required: true
+        example: 1
+        type: integer
+    queryParameters: []
+    bodyParameters: []
+    responses:
+      -
+        status: 400
+        content: .
+        headers: []
+        description: '400, Service is down or an unexpected error occurred'
+      -
+        status: 200
+        content: '{"status":"success","message":"successfully fetched upload status","data":{"status":"processing"}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '58'
+          access-control-allow-origin: '*'
+        description: null
+    responseFields:
+      status:
+        name: status
+        description: 'The status of this API (`success` or `error`).'
+        type: string
+      message:
+        name: message
+        description: 'The service message based on the status of the call.'
+        type: string
+      data:
+        name: data
+        description: 'The status of the upload.'
+        type: object

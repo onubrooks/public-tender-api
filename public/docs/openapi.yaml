@@ -1,0 +1,496 @@
+openapi: 3.0.3
+info:
+  title: 'Onubrooks'' Public Tender API'
+  description: 'A fast and simple API that allows users users to upload data in xls format to the system. The API supports searching, filtering and checking the status of the uploads'
+  version: 1.0.0
+servers:
+  -
+    url: 'https://public-tender-api-ozcgz.ondigitalocean.app'
+paths:
+  '/api/fetch-contract/{contract_id}':
+    get:
+      summary: "Fetch Contract\n\nThis endpoint fetches the contract, identified by the id in the url parameter. \nIf it fetches successfully, the read status of the contract will be updated with a timestamp.\n\nOtherwise, the request will fail with a 400 not found error, and an error field."
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        400:
+          description: '400, Service is down or an unexpected error occurred'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: .
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  message: 'successfully fetched contract'
+                  data:
+                    id: 1
+                    idcontrato: 2265302
+                    nAnuncio: 2574/2010
+                    tipoContrato: 'Empreitadas de obras públicas'
+                    tipoprocedimento: 'Concurso público'
+                    objectoContrato: '09/2016/EMP/DGR _ EN256 Variante à ponte do Albardão, incluindo nova ponte sobre o rio Degébe'
+                    adjudicantes: '504598686 - EP - ESTRADAS DE PORTUGAL, S.A'
+                    adjudicatarios: '502496878 - CONSTRUÇÕES PRAGOSA, S.A.'
+                    dataPublicacao: '2016-06-29'
+                    dataCelebracaoContrato: '2016-05-31'
+                    precoContratual: '2605654.08'
+                    cpv: '45233142-6 - Reparação de estradas'
+                    prazoExecucao: 300
+                    localExecucao: 'Portugal, Portugal Continental'
+                    fundamentacao: 'Artigo 19.º, alínea b) do Código dos Contratos Públicos'
+                    upload_id: 2
+                    batch_id: 2
+                    read_at: '2021-08-22T15:20:40.568722Z'
+                    created_at: '2021-08-22T15:20:27.000000Z'
+                    updated_at: '2021-08-22T15:20:40.000000Z'
+                properties:
+                  status:
+                    type: string
+                    example: success
+                    description: 'The status of this API (`success` or `error`).'
+                  message:
+                    type: string
+                    example: 'successfully fetched contract'
+                    description: 'The service message based on the status of the call.'
+                  data:
+                    type: object
+                    example:
+                      id: 1
+                      idcontrato: 2265302
+                      nAnuncio: 2574/2010
+                      tipoContrato: 'Empreitadas de obras públicas'
+                      tipoprocedimento: 'Concurso público'
+                      objectoContrato: '09/2016/EMP/DGR _ EN256 Variante à ponte do Albardão, incluindo nova ponte sobre o rio Degébe'
+                      adjudicantes: '504598686 - EP - ESTRADAS DE PORTUGAL, S.A'
+                      adjudicatarios: '502496878 - CONSTRUÇÕES PRAGOSA, S.A.'
+                      dataPublicacao: '2016-06-29'
+                      dataCelebracaoContrato: '2016-05-31'
+                      precoContratual: '2605654.08'
+                      cpv: '45233142-6 - Reparação de estradas'
+                      prazoExecucao: 300
+                      localExecucao: 'Portugal, Portugal Continental'
+                      fundamentacao: 'Artigo 19.º, alínea b) do Código dos Contratos Públicos'
+                      upload_id: 2
+                      batch_id: 2
+                      read_at: '2021-08-22T15:20:40.568722Z'
+                      created_at: '2021-08-22T15:20:27.000000Z'
+                      updated_at: '2021-08-22T15:20:40.000000Z'
+                    description: 'The contract with the given ID.'
+      tags:
+        - Contracts
+      security: []
+    parameters:
+      -
+        in: path
+        name: contract_id
+        description: 'The ID of the contract.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  '/api/contract-read-status/{contract_id}':
+    get:
+      summary: "Fetch Contract Read Status  \n\nThis endpoint fetches the read status of a contract, identified by its ID.\nIf the contract exists, its status is fetched and returned.\n\nOtherwise, the request will fail with a 400 not found error, and an error message."
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        400:
+          description: '400, Service is down or an unexpected error occurred'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: .
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  message: 'successfully fetched contract read status'
+                  data:
+                    read: false
+                properties:
+                  status:
+                    type: string
+                    example: success
+                    description: 'The status of this API (`success` or `error`).'
+                  message:
+                    type: string
+                    example: 'successfully fetched contract read status'
+                    description: 'The service message based on the status of the call.'
+                  data:
+                    type: object
+                    example:
+                      read: false
+                    description: 'The contract read status.'
+      tags:
+        - Contracts
+      security: []
+    parameters:
+      -
+        in: path
+        name: contract_id
+        description: 'The ID of the contract.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  /api/search-contracts:
+    get:
+      summary: "Search Contracts\n\nThis endpoint allows you to search for contracts based on the following columns:\ndataCelebracaoContrato, precoContratual, adjudicatarios\nAny of the columns that matches the data in each column will be returned."
+      description: ''
+      parameters:
+        -
+          in: query
+          name: dataCelebracaoContrato
+          description: 'date The item to search for in the dataCelebracaoContrato column.'
+          example: '2016-08-09'
+          required: true
+          schema:
+            type: string
+            description: 'date The item to search for in the dataCelebracaoContrato column.'
+            example: '2016-08-09'
+        -
+          in: query
+          name: precoContratual_lower
+          description: 'optional The lower range to search for in the precoContratual column.'
+          example: 2605654.08
+          required: false
+          schema:
+            type: number
+            description: 'optional The lower range to search for in the precoContratual column.'
+            example: 2605654.08
+        -
+          in: query
+          name: precoContratual_upper
+          description: 'optional The upper range to search for in the precoContratual column.'
+          example: 2605654.08
+          required: false
+          schema:
+            type: number
+            description: 'optional The upper range to search for in the precoContratual column.'
+            example: 2605654.08
+        -
+          in: query
+          name: adjudicatarios
+          description: 'optional The item to search for in the adjudicatarios column.'
+          example: '502496878 - CONSTRUÇÕES PRAGOSA, S.A.'
+          required: false
+          schema:
+            type: string
+            description: 'optional The item to search for in the adjudicatarios column.'
+            example: '502496878 - CONSTRUÇÕES PRAGOSA, S.A.'
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        400:
+          description: '400, Service is down or an unexpected error occurred'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: .
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  message: 'successfully fetched contracts'
+                  data:
+                    -
+                      id: 1
+                      idcontrato: 2265302
+                      nAnuncio: 2574/2010
+                      tipoContrato: 'Empreitadas de obras públicas'
+                      tipoprocedimento: 'Concurso público'
+                      objectoContrato: '09/2016/EMP/DGR _ EN256 Variante à ponte do Albardão, incluindo nova ponte sobre o rio Degébe'
+                      adjudicantes: '504598686 - EP - ESTRADAS DE PORTUGAL, S.A'
+                      adjudicatarios: '502496878 - CONSTRUÇÕES PRAGOSA, S.A.'
+                      dataPublicacao: '2016-06-29'
+                      dataCelebracaoContrato: '2016-05-31'
+                      precoContratual: '2605654.08'
+                      cpv: '45233142-6 - Reparação de estradas'
+                      prazoExecucao: 300
+                      localExecucao: 'Portugal, Portugal Continental'
+                      fundamentacao: 'Artigo 19.º, alínea b) do Código dos Contratos Públicos'
+                      upload_id: 2
+                      batch_id: 2
+                      read_at: null
+                      created_at: '2021-08-22T15:20:27.000000Z'
+                      updated_at: '2021-08-22T15:20:27.000000Z'
+                properties:
+                  status:
+                    type: string
+                    example: success
+                    description: 'The status of this API (`success` or `error`).'
+                  message:
+                    type: string
+                    example: 'successfully fetched contracts'
+                    description: 'The service message based on the status of the call.'
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        idcontrato: 2265302
+                        nAnuncio: 2574/2010
+                        tipoContrato: 'Empreitadas de obras públicas'
+                        tipoprocedimento: 'Concurso público'
+                        objectoContrato: '09/2016/EMP/DGR _ EN256 Variante à ponte do Albardão, incluindo nova ponte sobre o rio Degébe'
+                        adjudicantes: '504598686 - EP - ESTRADAS DE PORTUGAL, S.A'
+                        adjudicatarios: '502496878 - CONSTRUÇÕES PRAGOSA, S.A.'
+                        dataPublicacao: '2016-06-29'
+                        dataCelebracaoContrato: '2016-05-31'
+                        precoContratual: '2605654.08'
+                        cpv: '45233142-6 - Reparação de estradas'
+                        prazoExecucao: 300
+                        localExecucao: 'Portugal, Portugal Continental'
+                        fundamentacao: 'Artigo 19.º, alínea b) do Código dos Contratos Públicos'
+                        upload_id: 2
+                        batch_id: 2
+                        read_at: null
+                        created_at: '2021-08-22T15:20:27.000000Z'
+                        updated_at: '2021-08-22T15:20:27.000000Z'
+                    description: 'List of contracts that match the search.'
+                    items:
+                      type: object
+      tags:
+        - Contracts
+      security: []
+  /api/upload-for-processing:
+    post:
+      summary: "Upload Data for Processing\n\nThis endpoint allows users to upload .xls and .xlsx files for processing. \nThe data must follow the following format and number of columns as validations are in place:\nidcontrato, nAnuncio, tipoContrato, tipoprocedimento, objectoContrato, adjudicantes, adjudicatarios, dataPublicacao, dataCelebracaoContrato, precoContratual, cpv, prazoExecucao, localExecucao, fundamentacao"
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: multipart/form-data
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        400:
+          description: '400, Service is down or an unexpected error occurred'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: .
+      tags:
+        - Uploads
+      requestBody:
+        required: false
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                upload_file:
+                  type: string
+                  format: binary
+                  description: 'The file to be uploaded. Example C:\Users\onu\Downloads\contracts-medium-xls'
+                title:
+                  type: string
+                  description: 'An optional file title for the group of records.'
+                  example: '2016 Public Contracts'
+      security: []
+  /api/fetch-uploads:
+    get:
+      summary: "Fetch Uploads\n\nFetch a list of all uploads to the system. If everything is okay, you'll get a 200 OK response.\n\nOtherwise, the request will fail with a 400 error, and an error field."
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        400:
+          description: '400, Service is down or an unexpected error occurred'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: .
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  message: 'successfully fetched uploads'
+                  data:
+                    -
+                      title: null
+                      status: processing
+                      file_path: public/uploads/N1t5AXjFwMqs10XSuSUIQOhvmoj3YlFFAXm4MiPc.xlsx
+                      file_meta: '{"size":15187495,"extension":"xlsx","original_file_name":"contratos2016.xlsx","mime":"application\/vnd.openxmlformats-officedocument.spreadsheetml.sheet","time_uploaded":"2021-08-22T14:06:16.276111Z"}'
+                    -
+                      title: null
+                      status: processed
+                      file_path: public/uploads/jzGFR13mfxubfeJDo2QEGanrdmomV0HXZA5Tjc6R.xlsx
+                      file_meta: '{"size":11960,"extension":"xlsx","original_file_name":"contracts-small-xlsx.xlsx","mime":"application\/vnd.openxmlformats-officedocument.spreadsheetml.sheet","time_uploaded":"2021-08-22T15:19:25.226034Z"}'
+                properties:
+                  status:
+                    type: string
+                    example: success
+                    description: 'The status of this API (`success` or `error`).'
+                  message:
+                    type: string
+                    example: 'successfully fetched uploads'
+                    description: 'The service message based on the status of the call.'
+                  data:
+                    type: array
+                    example:
+                      -
+                        title: null
+                        status: processing
+                        file_path: public/uploads/N1t5AXjFwMqs10XSuSUIQOhvmoj3YlFFAXm4MiPc.xlsx
+                        file_meta: '{"size":15187495,"extension":"xlsx","original_file_name":"contratos2016.xlsx","mime":"application\/vnd.openxmlformats-officedocument.spreadsheetml.sheet","time_uploaded":"2021-08-22T14:06:16.276111Z"}'
+                      -
+                        title: null
+                        status: processed
+                        file_path: public/uploads/jzGFR13mfxubfeJDo2QEGanrdmomV0HXZA5Tjc6R.xlsx
+                        file_meta: '{"size":11960,"extension":"xlsx","original_file_name":"contracts-small-xlsx.xlsx","mime":"application\/vnd.openxmlformats-officedocument.spreadsheetml.sheet","time_uploaded":"2021-08-22T15:19:25.226034Z"}'
+                    description: 'List of all uploads  (both processed and unprocessed) sent to the API.'
+                    items:
+                      type: object
+      tags:
+        - Uploads
+      security: []
+  '/api/fetch-upload-status/{upload_id}':
+    get:
+      summary: "Fetch Upload Status \n\nThis endpoint fetches the status of a file previously uploaded. It accepts the ID of the upload and checks the status. \nThe status can be `queued`, `processing` or `processed`\n\nA not found error is returned if the upload ID doesn't match any item on the system."
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        400:
+          description: '400, Service is down or an unexpected error occurred'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: .
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  message: 'successfully fetched upload status'
+                  data:
+                    status: processing
+                properties:
+                  status:
+                    type: string
+                    example: success
+                    description: 'The status of this API (`success` or `error`).'
+                  message:
+                    type: string
+                    example: 'successfully fetched upload status'
+                    description: 'The service message based on the status of the call.'
+                  data:
+                    type: object
+                    example:
+                      status: processing
+                    description: 'The status of the upload.'
+      tags:
+        - Uploads
+      security: []
+    parameters:
+      -
+        in: path
+        name: upload_id
+        description: 'The ID of the upload.'
+        example: 1
+        required: true
+        schema:
+          type: integer

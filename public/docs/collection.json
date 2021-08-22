@@ -1,0 +1,448 @@
+{
+    "variable": [
+        {
+            "id": "baseUrl",
+            "key": "baseUrl",
+            "type": "string",
+            "name": "string",
+            "value": "public-tender-api-ozcgz.ondigitalocean.app"
+        }
+    ],
+    "info": {
+        "name": "Onubrooks' Public Tender API",
+        "_postman_id": "4f3689df-e41c-482d-8812-e118795c0a1f",
+        "description": "A fast and simple API that allows users users to upload data in xls format to the system. The API supports searching, filtering and checking the status of the uploads",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Contracts",
+            "description": "",
+            "item": [
+                {
+                    "name": "Fetch Contract\n\nThis endpoint fetches the contract, identified by the id in the url parameter. \nIf it fetches successfully, the read status of the contract will be updated with a timestamp.\n\nOtherwise, the request will fail with a 400 not found error, and an error field.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/fetch-contract\/:contract_id",
+                            "query": [],
+                            "raw": "https:\/\/{{baseUrl}}\/api\/fetch-contract\/:contract_id",
+                            "variable": [
+                                {
+                                    "id": "contract_id",
+                                    "key": "contract_id",
+                                    "value": "1",
+                                    "description": "The ID of the contract."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": ".",
+                            "name": "400, Service is down or an unexpected error occurred"
+                        },
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "x-ratelimit-limit",
+                                    "value": "60"
+                                },
+                                {
+                                    "key": "x-ratelimit-remaining",
+                                    "value": "56"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 200,
+                            "body": "{\"status\":\"success\",\"message\":\"successfully fetched contract\",\"data\":{\"id\":1,\"idcontrato\":2265302,\"nAnuncio\":\"2574\\\/2010\",\"tipoContrato\":\"Empreitadas de obras p\\u00fablicas\",\"tipoprocedimento\":\"Concurso p\\u00fablico\",\"objectoContrato\":\"09\\\/2016\\\/EMP\\\/DGR _ EN256 Variante \\u00e0 ponte do Albard\\u00e3o, incluindo nova ponte sobre o rio Deg\\u00e9be\",\"adjudicantes\":\"504598686 - EP - ESTRADAS DE PORTUGAL, S.A\",\"adjudicatarios\":\"502496878 - CONSTRU\\u00c7\\u00d5ES PRAGOSA, S.A.\",\"dataPublicacao\":\"2016-06-29\",\"dataCelebracaoContrato\":\"2016-05-31\",\"precoContratual\":\"2605654.08\",\"cpv\":\"45233142-6 - Repara\\u00e7\\u00e3o de estradas\",\"prazoExecucao\":300,\"localExecucao\":\"Portugal, Portugal Continental\",\"fundamentacao\":\"Artigo 19.\\u00ba, al\\u00ednea b) do C\\u00f3digo dos Contratos P\\u00fablicos\",\"upload_id\":2,\"batch_id\":2,\"read_at\":\"2021-08-22T15:20:40.568722Z\",\"created_at\":\"2021-08-22T15:20:27.000000Z\",\"updated_at\":\"2021-08-22T15:20:40.000000Z\"}}",
+                            "name": null
+                        }
+                    ]
+                },
+                {
+                    "name": "Fetch Contract Read Status  \n\nThis endpoint fetches the read status of a contract, identified by its ID.\nIf the contract exists, its status is fetched and returned.\n\nOtherwise, the request will fail with a 400 not found error, and an error message.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/contract-read-status\/:contract_id",
+                            "query": [],
+                            "raw": "https:\/\/{{baseUrl}}\/api\/contract-read-status\/:contract_id",
+                            "variable": [
+                                {
+                                    "id": "contract_id",
+                                    "key": "contract_id",
+                                    "value": "1",
+                                    "description": "The ID of the contract."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": ".",
+                            "name": "400, Service is down or an unexpected error occurred"
+                        },
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "x-ratelimit-limit",
+                                    "value": "60"
+                                },
+                                {
+                                    "key": "x-ratelimit-remaining",
+                                    "value": "55"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 200,
+                            "body": "{\"status\":\"success\",\"message\":\"successfully fetched contract read status\",\"data\":{\"read\":false}}",
+                            "name": null
+                        }
+                    ]
+                },
+                {
+                    "name": "Search Contracts\n\nThis endpoint allows you to search for contracts based on the following columns:\ndataCelebracaoContrato, precoContratual, adjudicatarios\nAny of the columns that matches the data in each column will be returned.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/search-contracts",
+                            "query": [
+                                {
+                                    "key": "dataCelebracaoContrato",
+                                    "value": "2016-08-09",
+                                    "description": "date The item to search for in the dataCelebracaoContrato column.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "precoContratual_lower",
+                                    "value": "2605654.08",
+                                    "description": "optional The lower range to search for in the precoContratual column.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "precoContratual_upper",
+                                    "value": "2605654.08",
+                                    "description": "optional The upper range to search for in the precoContratual column.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "adjudicatarios",
+                                    "value": "502496878+-+CONSTRU%C3%87%C3%95ES+PRAGOSA%2C+S.A.",
+                                    "description": "optional The item to search for in the adjudicatarios column.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "https:\/\/{{baseUrl}}\/api\/search-contracts?dataCelebracaoContrato=2016-08-09&precoContratual_lower=2605654.08&precoContratual_upper=2605654.08&adjudicatarios=502496878+-+CONSTRU%C3%87%C3%95ES+PRAGOSA%2C+S.A."
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": ".",
+                            "name": "400, Service is down or an unexpected error occurred"
+                        },
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "x-ratelimit-limit",
+                                    "value": "60"
+                                },
+                                {
+                                    "key": "x-ratelimit-remaining",
+                                    "value": "57"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 200,
+                            "body": "{\"status\":\"success\",\"message\":\"successfully fetched contracts\",\"data\":[{\"id\":1,\"idcontrato\":2265302,\"nAnuncio\":\"2574\\\/2010\",\"tipoContrato\":\"Empreitadas de obras p\\u00fablicas\",\"tipoprocedimento\":\"Concurso p\\u00fablico\",\"objectoContrato\":\"09\\\/2016\\\/EMP\\\/DGR _ EN256 Variante \\u00e0 ponte do Albard\\u00e3o, incluindo nova ponte sobre o rio Deg\\u00e9be\",\"adjudicantes\":\"504598686 - EP - ESTRADAS DE PORTUGAL, S.A\",\"adjudicatarios\":\"502496878 - CONSTRU\\u00c7\\u00d5ES PRAGOSA, S.A.\",\"dataPublicacao\":\"2016-06-29\",\"dataCelebracaoContrato\":\"2016-05-31\",\"precoContratual\":\"2605654.08\",\"cpv\":\"45233142-6 - Repara\\u00e7\\u00e3o de estradas\",\"prazoExecucao\":300,\"localExecucao\":\"Portugal, Portugal Continental\",\"fundamentacao\":\"Artigo 19.\\u00ba, al\\u00ednea b) do C\\u00f3digo dos Contratos P\\u00fablicos\",\"upload_id\":2,\"batch_id\":2,\"read_at\":null,\"created_at\":\"2021-08-22T15:20:27.000000Z\",\"updated_at\":\"2021-08-22T15:20:27.000000Z\"}]}",
+                            "name": null
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Uploads",
+            "description": "",
+            "item": [
+                {
+                    "name": "Upload Data for Processing\n\nThis endpoint allows users to upload .xls and .xlsx files for processing. \nThe data must follow the following format and number of columns as validations are in place:\nidcontrato, nAnuncio, tipoContrato, tipoprocedimento, objectoContrato, adjudicantes, adjudicatarios, dataPublicacao, dataCelebracaoContrato, precoContratual, cpv, prazoExecucao, localExecucao, fundamentacao",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/upload-for-processing",
+                            "query": [],
+                            "raw": "https:\/\/{{baseUrl}}\/api\/upload-for-processing"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "multipart\/form-data"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "title",
+                                    "value": "2016 Public Contracts",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "upload_file",
+                                    "src": [],
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": ".",
+                            "name": "400, Service is down or an unexpected error occurred"
+                        }
+                    ]
+                },
+                {
+                    "name": "Fetch Uploads\n\nFetch a list of all uploads to the system. If everything is okay, you'll get a 200 OK response.\n\nOtherwise, the request will fail with a 400 error, and an error field.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/fetch-uploads",
+                            "query": [],
+                            "raw": "https:\/\/{{baseUrl}}\/api\/fetch-uploads"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": ".",
+                            "name": "400, Service is down or an unexpected error occurred"
+                        },
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "x-ratelimit-limit",
+                                    "value": "60"
+                                },
+                                {
+                                    "key": "x-ratelimit-remaining",
+                                    "value": "59"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 200,
+                            "body": "{\"status\":\"success\",\"message\":\"successfully fetched uploads\",\"data\":[{\"title\":null,\"status\":\"processing\",\"file_path\":\"public\\\/uploads\\\/N1t5AXjFwMqs10XSuSUIQOhvmoj3YlFFAXm4MiPc.xlsx\",\"file_meta\":\"{\\\"size\\\":15187495,\\\"extension\\\":\\\"xlsx\\\",\\\"original_file_name\\\":\\\"contratos2016.xlsx\\\",\\\"mime\\\":\\\"application\\\\\\\/vnd.openxmlformats-officedocument.spreadsheetml.sheet\\\",\\\"time_uploaded\\\":\\\"2021-08-22T14:06:16.276111Z\\\"}\"},{\"title\":null,\"status\":\"processed\",\"file_path\":\"public\\\/uploads\\\/jzGFR13mfxubfeJDo2QEGanrdmomV0HXZA5Tjc6R.xlsx\",\"file_meta\":\"{\\\"size\\\":11960,\\\"extension\\\":\\\"xlsx\\\",\\\"original_file_name\\\":\\\"contracts-small-xlsx.xlsx\\\",\\\"mime\\\":\\\"application\\\\\\\/vnd.openxmlformats-officedocument.spreadsheetml.sheet\\\",\\\"time_uploaded\\\":\\\"2021-08-22T15:19:25.226034Z\\\"}\"}]}",
+                            "name": null
+                        }
+                    ]
+                },
+                {
+                    "name": "Fetch Upload Status \n\nThis endpoint fetches the status of a file previously uploaded. It accepts the ID of the upload and checks the status. \nThe status can be `queued`, `processing` or `processed`\n\nA not found error is returned if the upload ID doesn't match any item on the system.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/fetch-upload-status\/:upload_id",
+                            "query": [],
+                            "raw": "https:\/\/{{baseUrl}}\/api\/fetch-upload-status\/:upload_id",
+                            "variable": [
+                                {
+                                    "id": "upload_id",
+                                    "key": "upload_id",
+                                    "value": "1",
+                                    "description": "The ID of the upload."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": ".",
+                            "name": "400, Service is down or an unexpected error occurred"
+                        },
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "x-ratelimit-limit",
+                                    "value": "60"
+                                },
+                                {
+                                    "key": "x-ratelimit-remaining",
+                                    "value": "58"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 200,
+                            "body": "{\"status\":\"success\",\"message\":\"successfully fetched upload status\",\"data\":{\"status\":\"processing\"}}",
+                            "name": null
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "noauth"
+    }
+}

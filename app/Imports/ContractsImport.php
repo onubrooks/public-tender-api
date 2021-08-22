@@ -53,13 +53,13 @@ class ContractsImport implements ToModel, WithHeadingRow, WithUpserts, WithChunk
     // import in batches to drastically reduce the import duration.
     public function batchSize(): int
     {
-        return 200;
+        return 1000;
     }
 
     // read file in chunks to mitigate increase in memory usage
     public function chunkSize(): int
     {
-        return 600;
+        return 4000;
     }
 
     public function uniqueBy()

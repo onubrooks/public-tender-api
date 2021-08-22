@@ -95,7 +95,7 @@ class DataController extends Controller
      * Any of the columns that matches the data in each column will be returned.
      *
      * 
-     * @queryParam dataCelebracaoContrato date optional The item to search for in the dataCelebracaoContrato column. Example: 2016-08-09
+     * @queryParam dataCelebracaoContrato date required The item to search for in the dataCelebracaoContrato column. Example: 2016-08-09
      * @queryParam precoContratual_lower float optional The lower range to search for in the precoContratual column. Example: 2605654.08
      * @queryParam precoContratual_upper float optional The upper range to search for in the precoContratual column. Example: 2605654.08
      * @queryParam adjudicatarios string optional The item to search for in the adjudicatarios column. Example: 502496878 - CONSTRUÇÕES PRAGOSA, S.A.
@@ -112,10 +112,10 @@ class DataController extends Controller
             'precoContratual_upper' => ['nullable', 'numeric'],
             'adjudicatarios' => ['nullable', 'string'],
         ]);
-        $dataCelebracaoContrato = $request->query('dataCelebracaoContrato');
-        $precoContratual_lower = $request->query('precoContratual_lower');
-        $precoContratual_upper = $request->query('precoContratual_upper');
-        $adjudicatarios = $request->query('adjudicatarios');
+        $dataCelebracaoContrato = $request->query('dataCelebracaoContrato') ?? null;
+        $precoContratual_lower = $request->query('precoContratual_lower') ?? null;
+        $precoContratual_upper = $request->query('precoContratual_upper') ?? null;
+        $adjudicatarios = $request->query('adjudicatarios') ?? null;
 
         $contracts = ContractService::searchContracts($dataCelebracaoContrato, $precoContratual_lower, $precoContratual_upper, $adjudicatarios);
 

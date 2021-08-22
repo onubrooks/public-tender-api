@@ -33,7 +33,7 @@ class ProcessXslFile implements ShouldQueue
      *
      * @var int
      */
-    public $timeout = 600;
+    public $timeout = 3600;
 
     /**
      * The podcast instance.
@@ -78,7 +78,7 @@ class ProcessXslFile implements ShouldQueue
         } catch (\Exception $e) {
             $this->upload->update(['status' => 'failed']);
             Log::error($e);
-            throw $e; // rethrow to make job fail
+            // throw $e;
         }
     }
 
