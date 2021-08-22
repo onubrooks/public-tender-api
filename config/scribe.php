@@ -7,9 +7,9 @@ return [
     'theme' => 'default',
 
     /*
-             * The HTML <title> for the generated documentation. If this is empty, Scribe will infer it from config('app.name').
+     * The HTML <title> for the generated documentation. If this is empty, Scribe will infer it from config('app.name').
      */
-    'title' => "Onubrooks' Public Tender API",
+    'title' => "Onubrooks' Public Tender API",,
 
     /*
      * A short description of your API. Will be included in the docs webpage, Postman collection and OpenAPI spec.
@@ -87,7 +87,7 @@ return [
                      * API calls will be made only for routes in this group matching these HTTP methods (GET, POST, etc).
                      * List the methods here or use '*' to mean all methods. Leave empty to disable API calls.
                      */
-                    'methods' => ['*'],
+                    'methods' => ['GET'],
 
                     /*
                      * Laravel config variables which should be set for the API call.
@@ -211,7 +211,7 @@ return [
         /*
          * The name of the auth parameter (eg token, key, apiKey) or header (eg Authorization, Api-Key).
          */
-        'name' => 'token',
+        'name' => 'key',
 
         /*
          * The value of the parameter to be used by Scribe to authenticate response calls.
@@ -241,7 +241,8 @@ This documentation aims to provide all the information you need to work with our
 
 <aside>As you scroll, you'll see code examples for working with the API in different programming languages in the dark area to the right (or as part of the content on mobile).
 You can switch the language used with the tabs at the top right (or from the nav menu at the top left on mobile).</aside>
-INTRO,
+INTRO
+    ,
 
     /*
      * Example requests for each endpoint will be shown in each of these languages.
@@ -252,8 +253,6 @@ INTRO,
     'example_languages' => [
         'bash',
         'javascript',
-        'php',
-        'python',
     ],
 
     /*

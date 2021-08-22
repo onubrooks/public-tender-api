@@ -57,7 +57,7 @@ Serve the project:
 
 Start the queue:
 
-`php artisan queue:listen --timeout=600`
+`php artisan queue:listen --timeout=3600`
 
 After that, you are ready to give the API a go, break a leg!
 
