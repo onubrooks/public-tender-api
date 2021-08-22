@@ -60,7 +60,6 @@ class ProcessXslFile implements ShouldQueue
     public function handle()
     {
         try {
-            $readerType =
             $readerType = json_decode($this->upload->file_meta)->extension === 'xls' ? 
                 \Maatwebsite\Excel\Excel::XLS : 
                 \Maatwebsite\Excel\Excel::XLSX;

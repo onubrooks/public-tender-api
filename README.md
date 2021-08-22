@@ -61,11 +61,13 @@ Start the queue:
 
 After that, you are ready to give the API a go, break a leg!
 
+The project is temporarily hosted [here](https://public-tender-api-ozcgz.ondigitalocean.app) for testing but I suggest the reviewer runs it locally, configuring a redis queue for optimal functionality and results.
+
 ## API Documentation
 
 Full documentation can be found in the following links:
 
-1. OpenAPI 2.0 specificaiton compliant API documentation: [Public Tender API](https://public-tender-api-ozcgz.ondigitalocean.app/docs).
+1. OpenAPI 2.0 specification compliant API documentation: [Public Tender API](https://public-tender-api-ozcgz.ondigitalocean.app/docs).
 2. Postman documentation with real request and response examples at: [Public Tender Collection](https://documenter.getpostman.com/view/4758703/TzzDJaKs).
 
 ## About Onubrooks

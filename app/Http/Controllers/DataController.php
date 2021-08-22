@@ -34,7 +34,8 @@ class DataController extends Controller
         ]);
 
         $file = $request->file('upload_file');
-        $upload = UploadService::queueUpload($file);
+        $title = $request->title ?? null;
+        $upload = UploadService::queueUpload($file, $title);
 
         return $this->sendSuccessResponse($upload, 'successfully queued for processing');
     }
