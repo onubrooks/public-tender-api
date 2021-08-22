@@ -66,7 +66,7 @@ After that, you are ready to give the API a go, break a leg!
 Full documentation can be found in the following links:
 
 1. OpenAPI 2.0 specificaiton compliant API documentation: [Public Tender API](https://public-tender-api-ozcgz.ondigitalocean.app/docs).
-2. Postman documentation with real request and response examples at: [Meal Recommender Collection](https://documenter.getpostman.com/view/4758703/TzzDJaKs).
+2. Postman documentation with real request and response examples at: [Public Tender Collection](https://documenter.getpostman.com/view/4758703/TzzDJaKs).
 
 ## About Onubrooks
 

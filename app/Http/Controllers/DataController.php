@@ -28,7 +28,6 @@ class DataController extends Controller
      * @responseField data 'Upload' record just created.
      */
     public function uploadForProcessing(Request $request) {
-        ini_set('max_execution_time', 60);
         $request->validate([
             'title' => ['nullable', 'string'],
             'upload_file' => ['required', 'mimes:xls,xlsx'],
